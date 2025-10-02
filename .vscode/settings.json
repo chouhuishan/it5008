@@ -7,7 +7,7 @@
             "port": 5432,
             "driver": "PostgreSQL",
             "name": "it5008",
-            "database": "bdlecture",
+            "database": "lecturedb",
             "username": "shan"
         },
         {
@@ -16,8 +16,18 @@
             "server": "localhost",
             "port": 5432,
             "driver": "PostgreSQL",
-            "name": "it5008",
-            "database": "lecturedb",
+            "name": "it5008-f1",
+            "database": "f1db",
+            "username": "shan"
+        },
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "app_store",
+            "database": "app_store",
             "username": "shan"
         }
     ]

@@ -114,9 +114,10 @@ SET search_path TO app_store;
 INSERT INTO games
 VALUES ('Aerified', '1.0', 5),
     ('Aerified', '2.0', 6),
-    ('Verified', '1.0', 7) --> INSERTION SUCCESS, as the version is different, allowing the primary key to be unique, despite having the same name
-    -- this table varies from the one above, because of the additionl of column constraints, NOT NULL under price
-    CREATE SCHEMA IF NOT EXISTS app_store;
+    ('Verified', '1.0', 7);
+--> INSERTION SUCCESS, as the version is different, allowing the primary key to be unique, despite having the same name
+-- this table varies from the one above, because of the additionl of column constraints, NOT NULL under price
+CREATE SCHEMA IF NOT EXISTS app_store;
 SET search_path TO app_store;
 CREATE TABLE IF NOT EXISTS app_store.games(
     -- Games TABLE 3
@@ -130,7 +131,7 @@ INSERT INTO games (name, version)
 VALUES ('Aerified2', '1.0');
 --> INSERTION FAIL : Price is not stated, leading to an implicit null, but price cannot be null as per schema above
 SET search_path TO app_store;
-INSERT INTO games (name, version)
+INSERT INTO app_store.games (name, version)
 VALUES ('Aerified2', '1.0', NULL);
 --> INSERTION FAIL
 -- This table varies from the one above, NOTE: Addition of DEFAULT 1.00
