@@ -4,11 +4,9 @@
  Original schema as per AppStoreSchema.sql
  
  ********************/
-CREATE SCHEMA IF NOT EXISTS app_store;
-SET search_path TO app_store;
 -- new customer can be added to the table even if the customer has not downloaded any games
 -- do not have to introduce NULL values
-CREATE TABLE IF NOT EXISTS app_store.customers (
+CREATE TABLE IF NOT EXISTS customers (
     -- Customer ORIGINAL TABLE 1
     first_name VARCHAR(64),
     last_name VARCHAR(64),
@@ -19,10 +17,8 @@ CREATE TABLE IF NOT EXISTS app_store.customers (
     -- applies to the row
     country VARCHAR(16)
 );
-CREATE SCHEMA IF NOT EXISTS app_store;
-SET search_path TO app_store;
 -- This table differs from orignal, NOTE : PRIMARY KEY to customerid
-CREATE TABLE IF NOT EXISTS app_store.customers (
+CREATE TABLE IF NOT EXISTS customers (
     -- Customer TABLE 2
     first_name VARCHAR(64),
     last_name VARCHAR(64),
@@ -33,9 +29,6 @@ CREATE TABLE IF NOT EXISTS app_store.customers (
     -- applies to the row
     country VARCHAR(16)
 );
-CREATE SCHEMA IF NOT EXISTS app_store;
-SET search_path TO app_store;
-SET search_path TO app_store;
 INSERT INTO customers
 VALUES (
         'Carole',
@@ -45,8 +38,7 @@ VALUES (
         '2024-08-09',
         'Carole89',
         'France'
-    )
-SET search_path TO app_store;
+    );
 INSERT INTO customers
 VALUES (
         'Carole',
@@ -56,11 +48,10 @@ VALUES (
         '2024-08-09',
         'Carole89',
         'France'
-    ) --> double insertion leads to an error, due to duplicated customerid that is the primary key
-    -- This table varies from the one above; NOTE: HOW PRIMARY KEY AFFECTS
-    CREATE SCHEMA IF NOT EXISTS app_store;
-SET search_path TO app_store;
-CREATE TABLE IF NOT EXISTS app_store.customers (
+    );
+--> double insertion leads to an error, due to duplicated customerid that is the primary key
+-- This table varies from the one above; NOTE: HOW PRIMARY KEY AFFECTS
+TO CREATE TABLE IF NOT EXISTS customers (
     -- Customer TABLE 3
     first_name VARCHAR(64),
     last_name VARCHAR(64),
@@ -72,9 +63,7 @@ CREATE TABLE IF NOT EXISTS app_store.customers (
     PRIMARY KEY (customerid) -- after row
 );
 -- This table varies from the original, NOTE: UNIQUE at email
-CREATE SCHEMA IF NOT EXISTS app_store;
-SET search_path TO app_store;
-CREATE TABLE IF NOT EXISTS app_store.customers (
+TO CREATE TABLE IF NOT EXISTS customers (
     -- Customer TABLE 4
     first_name VARCHAR(64),
     last_name VARCHAR(64),
@@ -87,85 +76,68 @@ CREATE TABLE IF NOT EXISTS app_store.customers (
 );
 -- rather than using a single table by splitting the table, we need to remember 
 -- the identifier of the customers (customerid) and games (name, version)
-CREATE SCHEMA IF NOT EXISTS app_store;
-SET search_path TO app_store;
-CREATE TABLE IF NOT EXISTS app_store.games(
+TO CREATE TABLE IF NOT EXISTS games(
     -- Games ORIGINAL TABLE 1
     name VARCHAR(32),
     version CHAR(3),
     price NUMERIC
 );
-CREATE SCHEMA IF NOT EXISTS app_store;
-SET search_path TO app_store;
 -- This table is varies from the original, NOTE: PRIMARY KEY
-CREATE TABLE IF NOT EXISTS app_store.games(
+CREATE TABLE IF NOT EXISTS games(
     -- Games TABLE 2
     name VARCHAR(32),
     version CHAR(3),
     price NUMERIC,
     PRIMARY KEY (name, version) -- this is a composite primary key (table constraint)
 );
-SET search_path TO app_store;
 INSERT INTO games
 VALUES ('Aerified', '1.0', 5),
     ('Aerified', '1.0', 6);
 --> INSERTION FAIL; duplicate key value which is the primary key (name, version)
-SET search_path TO app_store;
 INSERT INTO games
 VALUES ('Aerified', '1.0', 5),
     ('Aerified', '2.0', 6),
     ('Verified', '1.0', 7);
 --> INSERTION SUCCESS, as the version is different, allowing the primary key to be unique, despite having the same name
 -- this table varies from the one above, because of the additionl of column constraints, NOT NULL under price
-CREATE SCHEMA IF NOT EXISTS app_store;
-SET search_path TO app_store;
-CREATE TABLE IF NOT EXISTS app_store.games(
+TO CREATE TABLE IF NOT EXISTS games(
     -- Games TABLE 3
     name VARCHAR(32),
     version CHAR(3),
     price NUMERIC NOT NULL,
     PRIMARY KEY (name, version)
 );
-SET search_path TO app_store;
 INSERT INTO games (name, version)
 VALUES ('Aerified2', '1.0');
 --> INSERTION FAIL : Price is not stated, leading to an implicit null, but price cannot be null as per schema above
-SET search_path TO app_store;
-INSERT INTO app_store.games (name, version)
+INSERT INTO games
 VALUES ('Aerified2', '1.0', NULL);
---> INSERTION FAIL
+--> INSERTION FAIL : null value in column "price" of relation "games" violates not-null constraint
 -- This table varies from the one above, NOTE: Addition of DEFAULT 1.00
-CREATE SCHEMA IF NOT EXISTS app_store;
-SET search_path TO app_store;
-CREATE TABLE IF NOT EXISTS app_store.games(
+CREATE TABLE IF NOT EXISTS games(
     -- Games TABLE 4
     name VARCHAR(32),
     version CHAR(3),
     price NUMERIC NOT NULL DEFAULT 1.00,
     PRIMARY KEY (name, version)
 );
-SET search_path TO app_store;
 INSERT INTO games (name, version)
 VALUES ('Aerified2', '1.0');
 --> INSERTION SUCCESS, despite price not stated, price will be defaulted to 1.00
-SET search_path TO app_store;
 INSERT INTO games (name, version)
 VALUES ('Aerified2', '1.0', NULL);
 -- This table varies from original, NOTE: CHECK constraint added to check price > 0
-CREATE SCHEMA IF NOT EXISTS app_store;
-SET search_path TO app_store;
-CREATE TABLE IF NOT EXISTS app_store.games(
+TO CREATE TABLE IF NOT EXISTS games(
     -- Games TABLE 5
     name VARCHAR(32),
     version CHAR(3),
     price NUMERIC NOT NULL CHECK (price > 0),
     PRIMARY KEY (name, version)
 );
-UPDATE app_store.games
+UPDATE games
 SET price = price - 5.5;
 -- UPDATE FAIL : Price cannot be negative
-SET search_path TO app_store;
-CREATE TABLE IF NOT EXISTS app_store.downloads(
+CREATE TABLE IF NOT EXISTS downloads(
     -- Downloads ORIGNIAL TABLE 1
     customerid VARCHAR(16),
     name VARCHAR(32),
@@ -173,40 +145,32 @@ CREATE TABLE IF NOT EXISTS app_store.downloads(
 );
 -- This table varies from the original: NOTE: Introduction of FOREIGN KEY
 -- REFERENCES TO customer TABLE 2 & games TABLE 2
-CREATE SCHEMA IF NOT EXISTS app_store;
-SET search_path TO app_store;
-CREATE TABLE IF NOT EXISTS app_store.downloads (
+CREATE TABLE IF NOT EXISTS downloads (
     -- Downloads TABLE 2
-    customerid VARCHAR(16) REFERENCES app_store.customers (customerid),
+    customerid VARCHAR(16) REFERENCES customers (customerid),
     name VARCHAR(32),
     version CHAR(3),
-    FOREIGN KEY (name, version) REFERENCES app_store.games (name, version)
+    FOREIGN KEY (name, version) REFERENCES games (name, version)
 );
-SET search_path TO app_store;
 INSERT INTO downloads
 VALUES ('Adam1983', 'Aerified2', '1.0');
--- INSERTION FAIL, no matching row in app_store.games with this pair ('Aerified2', '1.0')
-SET search_path TO app_store;
+-- INSERTION FAIL, no matching row in games with this pair ('Aerified2', '1.0')
 INSERT INTO downloads
 VALUES ('Carole89', 'Aerified', '1.1');
--- INSERTION FAIL, no matching row in app_store.games with this pair ('Aerified', '1.0')
-SET search_path TO app_store;
+-- INSERTION FAIL, no matching row in games with this pair ('Aerified', '1.0')
 INSERT INTO downloads
-VALUES (NULL, 'Aerified', '1.0');
--- INSERTION FAIL, no matching row in app_store.games with this pair ('Aerified2', '1.0')
-SET search_path TO app_store;
+VALUES (NULL, 'Aerified', '1.0') ALLOW (NULL) for (customerid);
+-- INSERTION FAIL, no matching row in games with this pair ('Aerified2', '1.0')
 INSERT INTO downloads
 VALUES ('Carole89', NULL, '1.1');
--- INSERTION FAIL, no matching row in app_store.games with this pair ('Aerified', '1.0')
+-- INSERTION FAIL, no matching row in games with this pair ('Aerified', '1.0')
 -- This table is different from above, NOTE: Usage of CASCADE
-CREATE SCHEMA IF NOT EXISTS app_store;
-SET search_path TO app_store;
-CREATE TABLE IF NOT EXISTS app_store.downloads (
+CREATE TABLE IF NOT EXISTS downloads (
     -- Downloads TABLE 3
-    customerid VARCHAR(16) REFERENCES app_store.customers (customerid) ON UPDATE CASCADE ON DELETE CASCADE,
+    customerid VARCHAR(16) REFERENCES customers (customerid) ON UPDATE CASCADE ON DELETE CASCADE,
     name VARCHAR(32),
     version CHAR(3),
-    FOREIGN KEY (name, version) REFERENCES app_store.games (name, version) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (name, version) REFERENCES games (name, version) ON UPDATE CASCADE ON DELETE CASCADE
 );
 -- PRIMARY KEY : Set of columns that uniquely identifies a record in the table. 
 --               Each table has at most 1 primary key.
