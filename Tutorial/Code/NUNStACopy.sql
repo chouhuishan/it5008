@@ -3,7 +3,7 @@
  Populate the table copy
  
  *************************/
-SET search_path TO books_exchange;
+-- SET search_path TO books_exchange;
 INSERT INTO copy (owner, book, copy, available)
 VALUES (
         'tsohuilin1989@msn.com',

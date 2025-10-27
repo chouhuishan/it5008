@@ -1,10 +1,10 @@
 SELECT *
-FROM books_exchange.book;
+FROM book;
 SELECT *
-FROM books_exchange.student;
+FROM student;
 SELECT *
-FROM books_exchange.copy;
+FROM copy;
 SELECT *
-FROM books_exchange.loan;
+FROM loan;
 -- get number of students
-SELECT COUNT(*) AS number_studentds
+SELECT COUNT(*) AS number_students;

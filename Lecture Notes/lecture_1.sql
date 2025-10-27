@@ -159,7 +159,7 @@ INSERT INTO downloads
 VALUES ('Carole89', 'Aerified', '1.1');
 -- INSERTION FAIL, no matching row in games with this pair ('Aerified', '1.0')
 INSERT INTO downloads
-VALUES (NULL, 'Aerified', '1.0') ALLOW (NULL) for (customerid);
+VALUES (NULL, 'Aerified', '1.0');
 -- INSERTION FAIL, no matching row in games with this pair ('Aerified2', '1.0')
 INSERT INTO downloads
 VALUES ('Carole89', NULL, '1.1');

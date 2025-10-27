@@ -4,7 +4,7 @@ Populate the table loan
 
 *************************/
 
-SET search_path TO books_exchange;
+-- SET search_path TO books_exchange;
 
 INSERT INTO loan (borrower, owner, book, copy, borrowed, returned) VALUES ('dingweixiang1990@yahoo.com', 'gohhuiying1989@gmail.com', '978-1449389673', 1, '2023-06-08', '2023-06-26');
 INSERT INTO loan (borrower, owner, book, copy, borrowed, returned) VALUES ('tayweiguo1989@msn.com', 'gohhuiying1989@gmail.com', '978-1449389673', 1, '2023-11-11', '2023-11-11');

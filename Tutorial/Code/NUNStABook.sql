@@ -3,7 +3,7 @@
  Populate the table book
  
  *************************/
-SET search_path TO books_exchange;
+-- SET search_path TO books_exchange;
 INSERT INTO book
 VALUES (
         'Photoshop Elements 9: The Missing Manual',

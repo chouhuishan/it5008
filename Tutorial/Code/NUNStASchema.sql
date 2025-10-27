@@ -3,9 +3,9 @@
  Create the schema.
  
  ********************/
-CREATE SCHEMA IF NOT EXISTS books_exchange;
-SET search_path TO books_exchange;
-CREATE TABLE IF NOT EXISTS books_exchange.book (
+-- CREATE SCHEMA IF NOT EXISTS book_exchange;
+-- SET search_path TO book_exchange;
+CREATE TABLE IF NOT EXISTS book (
   title VARCHAR(256) NOT NULL,
   format CHAR(9) CONSTRAINT format CHECK(
     format = 'paperback'
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS books_exchange.book (
   ISBN10 CHAR(10) NOT NULL UNIQUE,
   ISBN13 CHAR(14) PRIMARY KEY
 );
-CREATE TABLE IF NOT EXISTS books_exchange.student (
+CREATE TABLE IF NOT EXISTS student (
   name VARCHAR(32) NOT NULL,
   email VARCHAR(256) PRIMARY KEY,
   year DATE NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS books_exchange.student (
   graduate DATE,
   CHECK(graduate >= year)
 );
-CREATE TABLE IF NOT EXISTS books_exchange.copy (
+CREATE TABLE IF NOT EXISTS copy (
   owner VARCHAR(256) REFERENCES student(email) DEFERRABLE,
   book CHAR(14) REFERENCES book(ISBN13) DEFERRABLE,
   copy INT CHECK(copy > 0),
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS books_exchange.copy (
   ),
   PRIMARY KEY (owner, book, copy)
 );
-CREATE TABLE IF NOT EXISTS books_exchange.loan (
+CREATE TABLE IF NOT EXISTS loan (
   borrower VARCHAR(256) REFERENCES student(email) DEFERRABLE,
   owner VARCHAR(256),
   book CHAR(14),

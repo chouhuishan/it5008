@@ -1,8 +1,9 @@
 --1(a) : Print the different departments -- 
 SELECT department
-FROM books_exchange.student -- 1(b) : Print the different departments in which students are enrolled --
+FROM books_exchange.student;
+-- 1(b) : Print the different departments in which students are enrolled --
 SELECT DISTINCT department
-FROM books_exchange.student
+FROM books_exchange.student;
 ORDER BY department --1(c) : For each copy that has been borrowed and returned, print the ISBN13 of the book and the duration of the loan. Order the results in ascending order of the ISBN13 and descending order of duration. Remember to use only one single table.
 SELECT book,
     borrowed,
