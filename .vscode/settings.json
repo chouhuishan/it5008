@@ -39,16 +39,6 @@
             "name": "book_exchange",
             "database": "book_exchange",
             "username": "shan"
-        },
-        {
-            "ssh": "Disabled",
-            "previewLimit": 50,
-            "server": "localhost",
-            "port": 5432,
-            "driver": "PostgreSQL",
-            "name": "project-restaurant",
-            "database": "restaurant",
-            "username": "shan"
         }
     ]
 }
