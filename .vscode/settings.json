@@ -6,16 +6,6 @@
             "server": "localhost",
             "port": 5432,
             "driver": "PostgreSQL",
-            "name": "it5008",
-            "database": "lecturedb",
-            "username": "shan"
-        },
-        {
-            "ssh": "Disabled",
-            "previewLimit": 50,
-            "server": "localhost",
-            "port": 5432,
-            "driver": "PostgreSQL",
             "name": "it5008-f1",
             "database": "f1db",
             "username": "shan"
@@ -39,6 +29,16 @@
             "name": "book_exchange",
             "database": "book_exchange",
             "username": "shan"
+        },
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "restaurant",
+            "username": "shan",
+            "database": "restaurant"
         }
     ]
 }
