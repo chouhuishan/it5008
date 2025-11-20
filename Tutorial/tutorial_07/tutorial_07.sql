@@ -9,7 +9,7 @@
 -- S is a candidate key of R, if and only if S → R ➡️ S ⊆ R
 --      For all T ⊂ S, T is not a superkey of R.
 ;
--- R= {A, B, C, D, E, F , G, H}
+-- R = {A, B, C, D, E, F , G, H}
 -- Σ = { 
 --     {A} → {C, E}, 
 --     {A, B} → {D}, 
@@ -53,6 +53,7 @@
 ;
 -- (c) Find the prime attributes of R with Σ.
 -- Prime attributes: {A, B, F} ∪ {B, C, E, F} = {A, B, C, E, F}
+-- Prime attributes = UNION of candidate key❗️❗️❗️❗️❗️
 ;
 -- 2. Minimal Cover.
 -- (a) Compute a minimal cover of R with Σ
@@ -95,3 +96,5 @@
 ;
 -- (b) Compute a canonical cover of R with Σ.
 --          canonical cover == minimal cover; choose any of the possible ans above
+--          (merge the above with the same LHS)
+--          ANS: {A} → {C, E}, {F} → {H}, {C, E} → {A}, {B, C, E} → {D}, {B, C, E, F} → {G}
